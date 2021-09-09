@@ -1,12 +1,12 @@
 const createKeccakHash = require('keccak')
 
 var hash = (leaf) => {
-    return createKeccakHash("keccak256").update(leaf).digest('hex')
+    return createKeccakHash("keccak256").update(leaf).digest('hex').toUpperCase().substring(2)
 }
 
 function MerkleTree(leaves) {
+    // console.trace(leaves)
     this.hashFunction = hash;
-    console.log(leaves)
     this.leaves = this.hashLeaves(leaves);
     this.tree = [this.leaves];
     this.createTree(this.leaves);

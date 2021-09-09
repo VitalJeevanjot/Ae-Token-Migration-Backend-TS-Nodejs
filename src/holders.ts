@@ -10,12 +10,13 @@ mongoose.connect(uri, (err: any) => {
 });
 
 export const holderSchema = new mongoose.Schema({
-  ethAddress: { type: String, required: true},
-  balance: { type: String, required: true },
-  index: { type: Number, required: true },
-  hashes: [{ type: String, required: true }],
   hash: { type: String, required: true },
-  migrated: { type: Boolean, required: true }
+  eth_address: { type: String, required: true},
+  balance: { type: String, required: false },
+  leaf_index: { type: Number, required: true },
+  migrated: [{ type: Boolean, required: true }],
+  ae_address: { type: String, required: false},
+  migrate_tx_hash: { type: String, required: false }
 });
 
 const Holder = mongoose.model('Holder', holderSchema);
