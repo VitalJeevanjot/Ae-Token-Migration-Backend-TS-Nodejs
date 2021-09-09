@@ -2,10 +2,10 @@ const createKeccakHash = require('keccak')
 
 var hash = (leaf) => {
     var hash = createKeccakHash("keccak256").update(leaf).digest('hex').toUpperCase()
-    if(leaf.includes("0X932CF9910672B8A26BD31141FF8F11E9B7DFA6E2")){
-        console.log(leaf)
-        console.log(hash)
-    }
+    // if(leaf.includes("0X932CF9910672B8A26BD31141FF8F11E9B7DFA6E2")){ // For Manual checks
+    //     console.log(leaf)
+    //     console.log(hash)
+    // }
     return hash
 }
 

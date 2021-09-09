@@ -9,6 +9,8 @@ var data_to_array: string[] = []
 data_to_array = Object.entries(data).map((e) => ( JSON.stringify({ [e[0]]: e[1] }).replace(/{|}|"/g, '').toUpperCase()));
 var tree = new MerkleTree(data_to_array)
 
+
+
 // Endpoints...
 // GET - / - tree status, Root hash of merkel tree & number of leafs/nodes.
 // GET - /info/<eth_address> - get info from eth address.
@@ -22,6 +24,30 @@ export let rootHash = (req: Request, res: Response) => {
 }
 
 
+
+//Add data to DB!
+
+export async function createAdditions() {
+  for (let index = 0; index < data_to_array.length; index++) {
+    console.log("Adding to db: " + index)
+    var body = {
+      hash: tree.hashFunction(data_to_array[index]),
+      eth_address: data_to_array[index].split(':')[0],
+      balance: data_to_array[index].split(':')[1],
+      leaf_index: index
+    }
+    
+    var holder = new Holder(body)
+
+    await holder.save((err: any) => {
+      if(err) {
+        console.log(err)
+      } else {
+        console.log(holder)
+      }
+    })
+  }
+}
 
 
 
